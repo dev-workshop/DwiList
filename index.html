@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <title>DW List</title>
+    <meta name="description" content="">
+    <meta name="author" content="Todd Shelton">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=1, minimum-scale=1.0, maximum-scale=1.0">
+
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <link rel="stylesheet" href="css/jquery.mobile-1.3.2.min.css" type="text/css"/>
+    <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+
+</head>
+<body id="listApp">
+
+<!-- MAIN PAGE of lists -->
+<div data-role="page" id="pageone">
+    <div data-role="header" class="clearfix" >
+        <div><img id="logo" src="images/logo.png"></div>
+        <p>DWI List App</p>
+
+        <div class="plusSign" id="addListBtn"><img class=".logo-wrapper" src="images/plus.png"/></div>
+    </div>
+
+    <div data-role="content" >
+        <ul id="userLists" data-role="listview">
+
+        </ul>
+    </div>
+
+    <div data-role="footer" class="ui-bar utility-footer"  data-position="fixed" data-tap-toggle="false">
+        <p>All Right Reserved DWI copyright &copy; 2013</p>
+    </div>
+</div>
+
+<!-- DETAIL PAGE of list items-->
+<div data-role="page" id="detailView" >
+    <div data-role="header" class="clearfix">
+        <div><a id="logo" href="#"><img  src="images/logo.png"></a></div>
+        <p id="listName">DWI List App</p>
+        <div class="minusSign" id="deleteListBtn">delete<br>list</div>
+        <div class="plusSign" id="addItemBtn"><img class=".logo-wrapper" src="images/plus.png"/></div>
+    </div>
+
+    <div data-role="content" >
+        <ul id="userListItems" class="ui-listview" data-role="listview" data-theme="c">
+        </ul>
+    </div>
+
+    <div data-role="footer" class="ui-bar utility-footer"  data-position="fixed" data-tap-toggle="false">
+        <p>DWI copyright &copy; 2013</p>
+    </div>
+</div>
+
+<!--NEW LIST DIALOG-->
+<div data-role="dialog" id="listNameDialog">
+    <div data-role="header"><h1>Name Your List!</h1></div>
+    <div data-role="content">
+        <input id="listName" type="text">
+        <a id="namedListBtn" href="#listView" data-role="button">Submit</a>
+    </div>
+</div>
+
+<!-- NEW LIST ITEM DIALOG-->
+<div data-role="dialog" id="addListItemDialog">
+    <div data-role="header"><h1>Add List Item!</h1></div>
+    <div data-role="content">
+        <input id="itemName" type="text">
+        <a id="addItemSubmitBtn" href="#detailView" data-role="button">Submit</a>
+    </div>
+</div>
+
+<!-- jQuery -->
+<script type="text/javascript" src="vendor/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="js/jqmconfig.js"></script>
+<script type="text/javascript" src="vendor/jquery.mobile-1.3.2.min.js"></script>
+
+<!-- application code -->
+<script type="text/javascript" src="js/script.js"></script>
+<script type="text/javascript" src="js/ListApp.js"></script>
+<script type="text/javascript" src="js/MongoStore.js"></script>
+
+<!-- JQuery Mobile lifecycle events did not get bound until I moved these out to the index and placed at end of file -->
+<script type="text/javascript">
+
+    /**
+     * Called by JQM framework the first time a page is built.
+     * We will use this to initiate the application
+     */
+    $(document).on('pageinit', '#pageone',  function(){
+        ListApp.init();
+    });
+
+    /**
+     * Called by JQM framework before a page is shown.  We will use this to make sure the page is always in sync with
+     * the data.
+     */
+    $( "#pageone" ).on( "pagebeforeshow", function( event ) {
+        ListApp.buildListPage();
+    });
+
+    /**
+     * Called by JQM framework before a page is shown.  We will use this to make sure the page is always in sync with
+     * the data.
+     */
+    $( "#detailView" ).on( "pagebeforeshow", function( event ) {
+        ListApp.buildListItemsPage();
+    });
+
+</script>
+
+
+</body>
+</html>
